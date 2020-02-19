@@ -5,8 +5,9 @@ import axios from 'axios';
 
 
 const baseUrl = "https://api.openweathermap.org/data/2.5";
-const appId = "&appid=0aaf8a1cd595c5a845064ea52996cb45"
+const appId = "&appid=0aaf8a1cd595c5a845064ea52996cb45";
+// const appId= "&appid=e14154b4f09fc841a46c2fd919707747";
 
-export function getWeather(){
-    return axios.get(baseUrl+"/weather?q=Japan"+appId);
+export function getWeather(city){
+    return axios.get(baseUrl+"/weather?q="+city+appId);
 }
