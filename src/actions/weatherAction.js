@@ -8,5 +8,5 @@ const baseUrl = "https://api.openweathermap.org/data/2.5";
 const appId = "&appid=0aaf8a1cd595c5a845064ea52996cb45"
 
 export function getWeather(){
-    return axios.get(baseUrl+"/weather?q=Baccarat"+appId);
+    return axios.get(baseUrl+"/weather?q=Japan"+appId);
 }
