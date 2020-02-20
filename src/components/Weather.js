@@ -1,6 +1,29 @@
 import React, { useState, useEffect } from 'react'
-import { getWeather, getWeatherByCity, getWeatherByCoords } from '../actions/weatherAction';
+import { getWeather, getWeatherByCity, getWeatherByCoords, getWeatherByLang } from '../actions/weatherAction';
 // import { mockWeather } from '../mocks/mockWeather';
+
+
+import Button from '@material-ui/core/Button';
+import ButtonGroup from '@material-ui/core/ButtonGroup';
+import { makeStyles } from '@material-ui/core/styles';
+
+
+
+
+const useStyles = makeStyles(theme => ({
+    root: {
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        '& > *': {
+        margin: theme.spacing(1),
+        },
+    },
+}));
+      
+
+
+
 
 function Weather() {
 
@@ -14,6 +37,12 @@ function Weather() {
         //Récupérer les cordonnées 
         navigator.geolocation.getCurrentPosition(loadWeatherData,errorLoadWeatherData);
     }, [])
+
+
+
+ 
+
+
 
     function kelvinToCelsius(tempKelvin){
         return Math.round(tempKelvin - 273.15);
@@ -37,6 +66,13 @@ function Weather() {
         setWeather(weatherAjaxByCoords.data);
     }
 
+
+    // async function langWeather(lang){
+    //     const weatherAjaxByLang =  await getWeatherByLang(lang);
+    //     setLang(weatherAjaxByLang.data);
+    // }
+
+
     async function errorLoadWeatherData(error){
         const weatherAjax = await getWeather();
         setWeather(weatherAjax.data);
@@ -48,18 +84,33 @@ function Weather() {
 
 
     return (
-        <div>
-            { weather ? 
+        <div> 
+            { weather ?            
             <div>
+            
                 <input type="text" onChange={handleChange} />
-                <input type="button" onClick={searchWeatherByCity} value="Rechercher" />
+                
+                <input type="button" onClick={searchWeatherByCity} value="Rechercher" /><br/>
+
+                <ButtonGroup variant="contained" color="primary" aria-label="contained primary button group">
+                    <Button>Anglais</Button>
+                    <Button>Français</Button>
+                    <Button>Japonais</Button>
+                </ButtonGroup>
+
                 <h1>Météo : {weather.name}</h1> 
+
+                
+
                 <img alt="" src={loadIconWeather(weather.weather[0].icon)}></img>
+
+                
+
                 <p>{weather.weather[0].description}</p>
-                <p>{kelvinToCelsius(weather.main.temp)} C°</p>
+                <p>{kelvinToCelsius(weather.main.temp)} °C</p>
                 <p>{weather.main.humidity} %</p>
                 <p>{weather.wind.speed} m/s</p>
-                <p>{kelvinToCelsius(weather.main.feels_like)} C°</p>
+                <p>{kelvinToCelsius(weather.main.feels_like)} °C</p>
             </div>
              : <div>
                  <h1>Météo en attente de chargement</h1>

@@ -22,3 +22,8 @@ export function getWeatherByCity(city){
 export function getWeatherByCoords(coords){
     return axios.get(baseUrl+"/weather?lat="+coords.latitude+"&lon="+coords.longitude+appId);
 }
+
+
+// export function getWeatherBylang(lang){
+//     return axion.get(baseUrl+"forecast/daily?id=524901&appid="+apiId+"&lang="fr);
+// }
